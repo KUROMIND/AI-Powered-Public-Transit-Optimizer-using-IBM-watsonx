@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 import pandas as pd
+from flask_cors import CORS
 
 # --- Load GTFS Data ---
 stops_df = pd.read_csv('stops.txt', usecols=['stop_id', 'stop_name', 'stop_lat', 'stop_lon'])
@@ -8,6 +9,7 @@ trips_df = pd.read_csv('trips.txt', usecols=['trip_id', 'route_id', 'trip_headsi
 stop_times_df = pd.read_csv('stop_times.txt', usecols=['trip_id', 'arrival_time', 'departure_time', 'stop_id'])
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/stops', methods=['GET'])
 def get_stops():
